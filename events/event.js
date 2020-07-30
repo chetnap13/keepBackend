@@ -5,20 +5,25 @@ var dotenv = require('dotenv')
 dotenv.config();
 
 /// Create event handler
+
 var sendEmail = function (subject, user, text) {
-   
-        try {
+    
+  try {
             var transporter =  nodemailer.createTransport({
                 service:'gmail',
+                secure:false,
+                port:25,
                
                // secure: true,
                 auth: {
                     user: process.env.EMAIL,
                     pass: process.env.PASSWORD
+                },
+                tls: {
+                    rejectUnauthorized: false
                 }
             });
-console.log(process.env.EMAIL)
-console.log(process.env.PASSWORD)
+
             var mailOptions =  {
                 from:process.env.EMAIL ,
                 to: user.email,
